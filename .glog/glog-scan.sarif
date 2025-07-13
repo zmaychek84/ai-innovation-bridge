@@ -1,0 +1,670 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Glog.AI",
+          "organization": "Glog.AI",
+          "fullName": "Glog, Making software more secure",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://www.glog.ai",
+          "rules": [
+            {
+              "id": "glog-b1580c21-dde2-4ae7-897a-9ab987e1eeae",
+              "shortDescription": {
+                "text": "An ingress security group rule allows traffic from /0."
+              },
+              "helpUri": "https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/",
+              "help": {
+                "text": "",
+                "markdown": "For more details, visit: [https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/](https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/)."
+              },
+              "properties": {
+                "tags": [
+                  "aws-ec2-no-public-ingress-sgr"
+                ]
+              }
+            },
+            {
+              "id": "glog-81ead6ef-5c65-4e02-88d7-7904979f7407",
+              "shortDescription": {
+                "text": "An ingress security group rule allows traffic from /0."
+              },
+              "helpUri": "https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/",
+              "help": {
+                "text": "",
+                "markdown": "For more details, visit: [https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/](https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/no-public-ingress-sgr/)."
+              },
+              "properties": {
+                "tags": [
+                  "aws-ec2-no-public-ingress-sgr"
+                ]
+              }
+            },
+            {
+              "id": "glog-dc46c072-20d6-41c4-ad58-e170090090f4",
+              "shortDescription": {
+                "text": "Missing description for security group rule."
+              },
+              "helpUri": "https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/",
+              "help": {
+                "text": "",
+                "markdown": "For more details, visit: [https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/](https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/)."
+              },
+              "properties": {
+                "tags": [
+                  "aws-ec2-add-description-to-security-group-rule"
+                ]
+              }
+            },
+            {
+              "id": "glog-ce195a35-bdea-4f84-958c-ccb03bae0d1f",
+              "shortDescription": {
+                "text": "Missing description for security group rule."
+              },
+              "helpUri": "https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/",
+              "help": {
+                "text": "",
+                "markdown": "For more details, visit: [https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/](https://aquasecurity.github.io/tfsec/v1.28.6/checks/aws/ec2/add-description-to-security-group-rule/)."
+              },
+              "properties": {
+                "tags": [
+                  "aws-ec2-add-description-to-security-group-rule"
+                ]
+              }
+            },
+            {
+              "id": "glog-a87e9d75-bf36-4847-8c4a-3503364d9a2f",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Connectivity Across All Interfaces\" vulnerability occurs when a network service is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the service to the entire network, including the internet, if the host machine is connected to it. This exposure can lead to unauthorized access and potential exploitation by malicious actors.\n\n### General Mitigation Advice\n\n1. **Restrict Binding**: Bind the service to a specific IP address that is intended to access the service, such as `127.0.0.1` for local access only.\n2. **Firewall Rules**: Implement firewall rules to restrict access to the service from unauthorized IP addresses.\n3. **Authentication and Authorization**: Ensure that proper authentication and authorization mechanisms are in place to control access to the service.\n4. **Network Segmentation**: Place the service in a network segment that is isolated from untrusted networks.\n\n### Source Code Fix Recommendation\n\nTo mitigate the vulnerability in the provided code, change the `host` parameter in the `uvicorn.run` function to bind to `127.0.0.1` or another specific IP address that is intended to access the service.\n\n```python\nuvicorn.run(\"serve:app\", host=\"127.0.0.1\", port=5004, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: An ASGI server implementation for Python.\n- `fastapi` or `flask` (depending on the framework used for `serve:app`).\n\nYou can install these dependencies using pip:\n\n```bash\npip install uvicorn fastapi\n```\n\nor\n\n```bash\npip install uvicorn flask\n```\n\n### Relevant Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)\n\n### Common Weakness Enumeration\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-24470e76-7a54-40fc-a1a4-403a9078934f",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe vulnerability associated with deserializing untrusted data using Python's `pickle` module arises from its ability to execute arbitrary code during the deserialization process. This can be exploited by an attacker to execute malicious code if they can control the input to the `pickle` deserialization function. The `pandas` library's `read_pickle` function, which internally uses `pickle`, is also susceptible to this risk when loading data from untrusted sources.\n\n### General Mitigation Advice\n\n1. **Avoid Using Pickle for Untrusted Data**: Do not use `pickle` or any wrapper functions like `pandas.read_pickle` to deserialize data from untrusted sources.\n2. **Use Safer Alternatives**: Consider using safer serialization formats such as JSON, which do not allow code execution.\n3. **Validate and Sanitize Input**: If you must use `pickle`, ensure that the input data is from a trusted and verified source.\n4. **Implement Access Controls**: Restrict access to the deserialization function to trusted users and environments.\n\n### Source Code Fix Recommendation\n\nTo mitigate the risk of deserializing untrusted data with `pandas.read_pickle`, you can switch to a safer serialization format like JSON or CSV. Here's an example of how you might refactor the code:\n\n```python\nimport pandas as pd\n\n# Instead of using read_pickle, use read_csv or read_json for safer alternatives\n# data = pd.read_pickle(file)\n\n# Example using CSV\ndata = pd.read_csv('file.csv')\n\n# Example using JSON\n# data = pd.read_json('file.json')\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `pandas`\n\nYou can install the required library using pip:\n\n```bash\npip install pandas\n```\n\n### Relevant Links\n\n- [OWASP Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)\n- [CWE-502: Deserialization of Untrusted Data](https://cwe.mitre.org/data/definitions/502.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B301"
+                ]
+              }
+            },
+            {
+              "id": "glog-23b713bb-3217-4d43-a3eb-259cfc8f9c5a",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Connectivity Across All Interfaces\" vulnerability occurs when a network service is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the service to the entire network, including the internet, if the host machine is connected to it. This exposure can lead to unauthorized access and potential exploitation by malicious actors.\n\n### General Mitigation Advice\n\n1. **Restrict Binding**: Bind the service to a specific IP address that is intended to access the service, such as `127.0.0.1` for local access only.\n2. **Firewall Rules**: Implement firewall rules to restrict access to the service from unauthorized IP addresses.\n3. **Authentication and Authorization**: Ensure that proper authentication and authorization mechanisms are in place to control access to the service.\n4. **Network Segmentation**: Place the service in a network segment that is isolated from untrusted networks.\n\n### Source Code Fix Recommendation\n\nTo mitigate the vulnerability in the provided code, change the `host` parameter in the `uvicorn.run` function to bind to `127.0.0.1` or another specific IP address that is intended to access the service.\n\n```python\nuvicorn.run(\"serve:app\", host=\"127.0.0.1\", port=5004, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: An ASGI server implementation for Python.\n- `fastapi` or `flask` (depending on the framework used for `serve:app`).\n\nYou can install these dependencies using pip:\n\n```bash\npip install uvicorn fastapi\n```\n\nor\n\n```bash\npip install uvicorn flask\n```\n\n### Relevant Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)\n\n### Common Weakness Enumeration\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-cacb6d6e-d288-4450-a93d-a03561731a81",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Binding Across All Interfaces\" vulnerability occurs when a server application is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the application to the internet, making it accessible to unauthorized users and increasing the risk of attacks. In the context of a Python application using `uvicorn`, binding to `0.0.0.0` means that the application is accessible from any IP address, which might not be desirable in a production environment.\n\n### General Mitigation Advice\n\nTo mitigate this vulnerability, configure the server to bind only to specific, trusted network interfaces. This limits exposure and reduces the attack surface. For development purposes, binding to `localhost` or `127.0.0.1` is often sufficient. In production, consider using a firewall or reverse proxy to control access.\n\n### Source Code Fix Recommendation\n\nTo address the specific vulnerability in the provided code, modify the `host` parameter to bind to a more secure interface, such as `127.0.0.1` for local development or a specific IP address for production.\n\n```python\nuvicorn.run(\"serve:app\", host=\"127.0.0.1\", port=5002, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: This is the ASGI server used to run the application.\n\nYou can install the required library using pip:\n\n```bash\npip install uvicorn\n```\n\n### Relevant OWASP Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)\n\n### Common Weakness Enumeration (CWE)\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-666d59ab-b26f-4565-815b-ec73c66bb058",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Binding Across All Interfaces\" vulnerability occurs when a server application is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the application to the internet, making it accessible to unauthorized users and increasing the risk of attacks such as unauthorized access, data breaches, and denial of service.\n\n### General Mitigation Advice\n\n1. **Restrict Binding**: Bind the application to a specific IP address, such as `127.0.0.1`, to limit access to the local machine only.\n2. **Use a Firewall**: Implement firewall rules to restrict access to the application from untrusted networks.\n3. **Authentication and Authorization**: Ensure proper authentication and authorization mechanisms are in place to control access to the application.\n4. **Network Segmentation**: Deploy the application in a segmented network environment to limit exposure to potential threats.\n\n### Source Code Fix Recommendation\n\nTo mitigate the vulnerability, modify the `uvicorn.run` call to bind to `127.0.0.1` instead of `0.0.0.0`:\n\n```python\nuvicorn.run(\"serve:app\", host=\"127.0.0.1\", port=5003, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: An ASGI server implementation for Python.\n- `fastapi` or `flask` (depending on the framework used for `serve:app`).\n\nYou can install these dependencies using pip:\n\n```bash\npip install uvicorn fastapi\n```\n\nor\n\n```bash\npip install uvicorn flask\n```\n\n### Relevant Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)\n\n### Common Weakness Enumeration\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-7831d3cb-3ba8-405a-84bd-bf87c502cf9e",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Connectivity Across All Interfaces\" vulnerability occurs when a network service is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the service to the entire network, including the internet, if the host machine is connected to it. This exposure can lead to unauthorized access and potential exploitation by malicious actors.\n\n### Mitigation Advice\n\nTo mitigate this vulnerability, restrict the service to listen only on specific, trusted network interfaces. This limits exposure and reduces the risk of unauthorized access.\n\n### Source Code Fix Recommendation\n\nIn the provided code snippet, the `uvicorn.run` function is configured to listen on all interfaces (`host=\"0.0.0.0\"`). To fix this, change the `host` parameter to a more restrictive interface, such as `127.0.0.1` for local-only access or a specific IP address for a trusted network interface.\n\n```python\nuvicorn.run(\"serve:app\", host=\"127.0.0.1\", port=5001, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: An ASGI server implementation for Python.\n- `fastapi` or any other ASGI-compatible framework if `serve:app` is a FastAPI application.\n\nYou can install these dependencies using pip:\n\n```bash\npip install uvicorn fastapi\n```\n\n### Relevant Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)\n- [Common Weakness Enumeration (CWE-200: Exposure of Sensitive Information to an Unauthorized Actor)](https://cwe.mitre.org/data/definitions/200.html)\n\nThese links are verified to be active and accessible to anonymous users."
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-9b0a846b-d5d9-461d-b576-fc09509d364f",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Binding Across All Interfaces\" vulnerability occurs when a server application is configured to listen on all available network interfaces (`0.0.0.0`). This can expose the application to the internet, making it accessible to unauthorized users and increasing the risk of attacks such as Denial of Service (DoS), unauthorized access, and data breaches.\n\n### General Mitigation Advice\n\nTo mitigate this vulnerability, configure the server to bind only to specific, trusted network interfaces. This limits exposure to only those interfaces that are necessary for the application's operation, reducing the attack surface.\n\n### Source Code Fix Recommendation\n\nIn the provided code example, the `uvicorn.run` function is configured to bind to all interfaces using `host=\"0.0.0.0\"`. To mitigate the vulnerability, change the `host` parameter to a specific IP address or `localhost` if the application is intended to be accessed only locally.\n\n```python\nuvicorn.run(\"server:app\", host=\"127.0.0.1\", port=5001, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: An ASGI server implementation for Python web applications.\n\nYou can install the required library using pip:\n\n```bash\npip install uvicorn\n```\n\n### Relevant OWASP Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)\n\n### Common Weakness Enumeration (CWE)\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-d3e869ef-76da-441b-85a2-26a3d35d9529",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Attachment to All Interfaces\" vulnerability occurs when a server is configured to listen on all available network interfaces, typically by binding to the IP address `0.0.0.0`. This can expose the server to external networks, potentially allowing unauthorized access and increasing the attack surface. In the context of Python applications, this is often seen in web servers or applications using frameworks like FastAPI or Flask, where the server is inadvertently exposed to the internet.\n\n### General Mitigation Advice\n\nTo mitigate this vulnerability, configure the server to bind only to specific, trusted network interfaces. This limits exposure to only those networks that are necessary for the application's operation. Additionally, consider implementing network-level security measures such as firewalls and access control lists (ACLs) to further restrict access.\n\n### Source Code Fix Recommendation\n\nIn the provided code example, the `uvicorn.run` function is configured to bind to all interfaces using `host=\"0.0.0.0\"`. To mitigate the vulnerability, change the `host` parameter to a specific IP address or `localhost` if the server is intended to be accessed only locally.\n\n```python\nimport uvicorn\n\n# Bind to localhost to restrict access to local machine only\nuvicorn.run(\"server:app\", host=\"127.0.0.1\", port=5000, log_level=\"info\")\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `uvicorn`: This is the ASGI server used to run the application.\n\nYou can install the required library using pip:\n\n```bash\npip install uvicorn\n```\n\n### Relevant OWASP Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)\n\n### Common Weakness Enumeration (CWE)\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            },
+            {
+              "id": "glog-43b8c5c7-b14a-4076-8019-2ffa05e22d74",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe vulnerability arises when a Flask application is run with the `debug` mode enabled and is exposed to the network by setting `host='0.0.0.0'`. This configuration exposes the Werkzeug debugger, which is a powerful tool intended for development purposes only. When the debugger is exposed, it allows anyone with access to the application to execute arbitrary code on the server. This can lead to unauthorized access, data leakage, or complete system compromise.\n\n### General Mitigation Advice\n\n1. **Disable Debug Mode in Production**: Always ensure that the `debug` mode is set to `False` in production environments.\n2. **Restrict Host Binding**: Avoid binding the application to all network interfaces (`0.0.0.0`). Instead, bind to `127.0.0.1` or the specific IP address of the server.\n3. **Use Environment Variables**: Manage configuration settings like `debug` mode through environment variables to prevent accidental exposure.\n4. **Implement Access Controls**: Use firewalls or other network controls to restrict access to the application.\n\n### Source Code Fix Recommendation\n\nTo mitigate the vulnerability, modify the `app.run()` method to disable debug mode and restrict the host binding:\n\n```python\n# app.py\n\nfrom flask import Flask\n\napp = Flask(__name__)\n\n@app.route('/')\ndef hello():\n    return \"Hello, World!\"\n\nif __name__ == '__main__':\n    # Ensure debug is False and host is restricted\n    app.run(debug=False, host='127.0.0.1')\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- Flask\n\nYou can install the required library using pip:\n\n```bash\npip install Flask\n```\n\n### Relevant Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n\n### Common Weakness Enumeration (CWE)\n\n- [CWE-94: Improper Control of Generation of Code ('Code Injection')](https://cwe.mitre.org/data/definitions/94.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B201"
+                ]
+              }
+            },
+            {
+              "id": "glog-866216c6-788c-4ecf-b0b5-bc898c45cd3b",
+              "help": {
+                "text": "",
+                "markdown": "### Description\n\nThe \"Potential Attachment to All Interfaces\" vulnerability occurs when a Python application is configured to listen on all network interfaces (`0.0.0.0`). This can expose the application to the internet, making it accessible to anyone who can reach the server, which increases the risk of unauthorized access and attacks. This is particularly dangerous when the application is running in debug mode, as it may expose sensitive information and provide an attacker with additional tools to exploit the application.\n\n### General Mitigation Advice\n\n1. **Restrict Binding**: Bind the application to `localhost` or a specific IP address to limit exposure.\n2. **Disable Debug Mode**: Never run the application in debug mode in a production environment.\n3. **Use a Firewall**: Implement network-level security controls to restrict access to the application.\n4. **Authentication and Authorization**: Ensure proper authentication and authorization mechanisms are in place.\n5. **Regular Security Audits**: Conduct regular security audits and vulnerability assessments.\n\n### Source Code Fix Recommendation\n\nTo mitigate the vulnerability, modify the code to bind the application to `localhost` and disable debug mode:\n\n```python\napp.run(debug=False, host='127.0.0.1')\n```\n\n### Library Dependencies\n\nTo execute the code example properly, the following library dependencies are required:\n\n- `Flask`: A micro web framework for Python.\n\nYou can install Flask using pip:\n\n```bash\npip install Flask\n```\n\n### OWASP Resources\n\n- [OWASP Top Ten](https://owasp.org/www-project-top-ten/)\n- [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)\n\n### Common Weakness Enumeration (CWE)\n\n- [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)\n- [CWE-284: Improper Access Control](https://cwe.mitre.org/data/definitions/284.html)"
+              },
+              "properties": {
+                "tags": [
+                  "B104"
+                ]
+              }
+            }
+          ],
+          "language": "en-US",
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "isComprehensive": false
+        }
+      },
+      "language": "en-US",
+      "results": [
+        {
+          "ruleId": "glog-b1580c21-dde2-4ae7-897a-9ab987e1eeae",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Security group rule allows ingress from public internet."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/terraform/main.tf"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "glog-81ead6ef-5c65-4e02-88d7-7904979f7407",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "Security group rule allows ingress from public internet."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/terraform/main.tf"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "glog-dc46c072-20d6-41c4-ad58-e170090090f4",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Security group rule does not have a description."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/terraform/main.tf"
+                },
+                "region": {
+                  "startLine": 49,
+                  "endLine": 57
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "glog-ce195a35-bdea-4f84-958c-ccb03bae0d1f",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Security group rule does not have a description."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/terraform/main.tf"
+                },
+                "region": {
+                  "startLine": 49,
+                  "endLine": 57
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "glog-a87e9d75-bf36-4847-8c4a-3503364d9a2f",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-innovation-bridge-energy-ragathon-2024/sample-code/supportbot_chatbot/src/serve.py"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 35,
+                  "endLine": 68,
+                  "endColumn": 44,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5004, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 67,
+                  "endLine": 68,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5004, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-24470e76-7a54-40fc-a1a4-403a9078934f",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-prototyping-challenge-2023/pharmaceutical_manufacturing_business/robot_maintenance/src/train.py"
+                },
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 20,
+                  "endLine": 58,
+                  "endColumn": 40,
+                  "snippet": {
+                    "text": "            data = pd.read_pickle(file)\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 57,
+                  "endLine": 59,
+                  "snippet": {
+                    "text": "        try:\n            data = pd.read_pickle(file)\n        except FileNotFoundError:\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "HIGH"
+          }
+        },
+        {
+          "ruleId": "glog-23b713bb-3217-4d43-a3eb-259cfc8f9c5a",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-prototyping-challenge-2023/pharmaceutical_manufacturing_business/supportbot_chatbot/src/serve.py"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 35,
+                  "endLine": 68,
+                  "endColumn": 44,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5004, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 67,
+                  "endLine": 68,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5004, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-cacb6d6e-d288-4450-a93d-a03561731a81",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-prototyping-challenge-2023/pharmaceutical_manufacturing_business/medication_qaqc/src/serve.py"
+                },
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 35,
+                  "endLine": 97,
+                  "endColumn": 44,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5002, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 96,
+                  "endLine": 97,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5002, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-666d59ab-b26f-4565-815b-ec73c66bb058",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-prototyping-challenge-2023/pharmaceutical_manufacturing_business/robot_maintenance/src/serve.py"
+                },
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 35,
+                  "endLine": 63,
+                  "endColumn": 44,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5003, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 62,
+                  "endLine": 63,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5003, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-7831d3cb-3ba8-405a-84bd-bf87c502cf9e",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-prototyping-challenge-2023/pharmaceutical_manufacturing_business/medication_demand_forecast/src/serve.py"
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 35,
+                  "endLine": 94,
+                  "endColumn": 44,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5001, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 93,
+                  "endLine": 94,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"serve:app\", host=\"0.0.0.0\", port=5001, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-9b0a846b-d5d9-461d-b576-fc09509d364f",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-startup-olympics-2023/inference/server.py"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 36,
+                  "endLine": 48,
+                  "endColumn": 45,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"server:app\", host=\"0.0.0.0\", port=5001, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 47,
+                  "endLine": 48,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"server:app\", host=\"0.0.0.0\", port=5001, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-d3e869ef-76da-441b-85a2-26a3d35d9529",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/ai-startup-olympics-2023/training/server.py"
+                },
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 36,
+                  "endLine": 55,
+                  "endColumn": 45,
+                  "snippet": {
+                    "text": "    uvicorn.run(\"server:app\", host=\"0.0.0.0\", port=5000, log_level=\"info\")\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 54,
+                  "endLine": 55,
+                  "snippet": {
+                    "text": "if __name__ == \"__main__\":\n    uvicorn.run(\"server:app\", host=\"0.0.0.0\", port=5000, log_level=\"info\")\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-43b8c5c7-b14a-4076-8019-2ffa05e22d74",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/stable-diffusion/app.py"
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 5,
+                  "endLine": 28,
+                  "endColumn": 40,
+                  "snippet": {
+                    "text": "    app.run(debug=True, host='0.0.0.0')\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 27,
+                  "endLine": 28,
+                  "snippet": {
+                    "text": "if __name__ == '__main__':\n    app.run(debug=True, host='0.0.0.0')\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "HIGH",
+            "issue_confidence": "MEDIUM"
+          }
+        },
+        {
+          "ruleId": "glog-866216c6-788c-4ecf-b0b5-bc898c45cd3b",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Possible binding to all interfaces."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "hackathons/genai-rockstar-challenge-2023/stable-diffusion/app.py"
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 30,
+                  "endLine": 28,
+                  "endColumn": 39,
+                  "snippet": {
+                    "text": "    app.run(debug=True, host='0.0.0.0')\n"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 27,
+                  "endLine": 28,
+                  "snippet": {
+                    "text": "if __name__ == '__main__':\n    app.run(debug=True, host='0.0.0.0')\n"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "issue_severity": "MEDIUM",
+            "issue_confidence": "MEDIUM"
+          }
+        }
+      ],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ]
+    }
+  ]
+}
